@@ -4,6 +4,7 @@
 
     <div class="d-flex">
       <input
+        data-cy="input-task"
         type="text"
         placeholder="Crie uma tarefa"
         class="form-control"
@@ -23,22 +24,26 @@
       <tbody>
         <tr v-for="(task, indice) in listaDeveres" :key="indice">
           <td>
-            <span>{{ task.name }}</span>
+            <span  data-cy="tasks-row">{{ task.name }}</span>
           </td>
           <td>
             <span @click="trocarStatus(indice)">{{ task.status }}</span>
           </td>
           <td>
-            <div class="text-center" @click="deleteTarefa(indice)">
+            <div data-cy="deletar-task" class="text-center" @click="deleteTarefa(indice)">
               <span class="fa fa-trash"></span>
             </div>
           </td>
         </tr>
         <td>
           <tr>
-            <span>{{contagem}} </span>
+            <span>{{ contagem }} </span>
           </tr>
-          <tr>{{ contadorFeitos}} </tr>
+          <tr>
+            {{
+              contadorFeitos
+            }}
+          </tr>
         </td>
       </tbody>
     </table>
@@ -94,28 +99,25 @@ export default {
         });
         this.task = "";
       }
-      this.contador ++;
-    }
-
-    ,
+      this.contador++;
+    },
 
     trocarStatus(indice) {
-      
       if (this.tasks[indice].status == "Feito") {
         this.tasks[indice].status = "A fazer";
-        this.contadorFeitos --;
+        this.contadorFeitos--;
       } else if (this.tasks[indice].status == "A fazer") {
         this.tasks[indice].status = "Feito";
-        this.contadorFeitos ++;
+        this.contadorFeitos++;
       }
       // if (this.tasks[indice].status == 'Feito') {
       //   this.contadorFeitos ++;
-      // } 
-       },
+      // }
+    },
 
     deleteTarefa(indice) {
       this.tasks.splice(indice, 1);
-      this.contador --;
+      this.contador--;
     },
   },
 };
